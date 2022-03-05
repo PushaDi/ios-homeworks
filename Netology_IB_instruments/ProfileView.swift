@@ -7,12 +7,7 @@
 import UIKit
 
 class ProfileView: UIView {
-    @IBOutlet var ProfileView: ProfileView!
-    @IBOutlet weak var UserPhoto: UIImageView!
-    @IBOutlet weak var UserName: UILabel!
-    @IBOutlet weak var UserBirthDate: UILabel!
-    @IBOutlet weak var UserCity: UILabel!
-    @IBOutlet weak var UserBio: UITextView!
+
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,7 +28,7 @@ class ProfileView: UIView {
     
 
     private func loadViewFromXib() -> UIView {
-        guard let view = Bundle.main.loadNibNamed("ProfileView", owner: nil, options: nil)?.first as? UIView else {
+        guard let view = Bundle.main.loadNibNamed("ProfileView", owner: self, options: nil)?.first as? UIView else {
             return UIView()
         }
         
