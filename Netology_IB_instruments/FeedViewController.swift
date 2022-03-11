@@ -27,6 +27,7 @@ class FeedViewController: UIViewController {
     private func setupView() {
         self.title = "Лента"
         self.view.backgroundColor = .systemMint
+        
     }
 
     private func setupButton() {

@@ -13,12 +13,13 @@
 		4085725727D4B52B00D06CC8 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085725627D4B52B00D06CC8 /* InfoViewController.swift */; };
 		4085725927D4B55300D06CC8 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085725827D4B55300D06CC8 /* FeedViewController.swift */; };
 		4085725B27D4B58600D06CC8 /* FeedNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085725A27D4B58600D06CC8 /* FeedNavigationController.swift */; };
+		4085725E27DA0FBD00D06CC8 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085725D27DA0FBD00D06CC8 /* ProfileHeaderView.swift */; };
+		4085726027DA0FE400D06CC8 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085725F27DA0FE400D06CC8 /* ProfileViewController.swift */; };
 		40C48E6727C8BF6A0072C564 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C48E6627C8BF6A0072C564 /* AppDelegate.swift */; };
 		40C48E6927C8BF6A0072C564 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C48E6827C8BF6A0072C564 /* SceneDelegate.swift */; };
 		40C48E6B27C8BF6A0072C564 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C48E6A27C8BF6A0072C564 /* ViewController.swift */; };
 		40C48E7027C8BF6D0072C564 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40C48E6F27C8BF6D0072C564 /* Assets.xcassets */; };
 		40C48E7327C8BF6D0072C564 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40C48E7127C8BF6D0072C564 /* LaunchScreen.storyboard */; };
-		40C48E8327C8C53B0072C564 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C48E8227C8C53B0072C564 /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,8 @@
 		4085725627D4B52B00D06CC8 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InfoViewController.swift; path = Netology_IB_instruments/InfoViewController.swift; sourceTree = "<group>"; };
 		4085725827D4B55300D06CC8 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FeedViewController.swift; path = Netology_IB_instruments/FeedViewController.swift; sourceTree = "<group>"; };
 		4085725A27D4B58600D06CC8 /* FeedNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FeedNavigationController.swift; path = Netology_IB_instruments/FeedNavigationController.swift; sourceTree = "<group>"; };
+		4085725D27DA0FBD00D06CC8 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		4085725F27DA0FE400D06CC8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		40C48E6327C8BF6A0072C564 /* Netology_IB_instruments.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Netology_IB_instruments.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40C48E6627C8BF6A0072C564 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40C48E6827C8BF6A0072C564 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -35,7 +38,6 @@
 		40C48E6F27C8BF6D0072C564 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		40C48E7227C8BF6D0072C564 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		40C48E7427C8BF6D0072C564 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		40C48E8227C8C53B0072C564 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,9 +51,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4085725C27DA0F8900D06CC8 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				4085725D27DA0FBD00D06CC8 /* ProfileHeaderView.swift */,
+				4085725F27DA0FE400D06CC8 /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		40C48E5A27C8BF6A0072C564 = {
 			isa = PBXGroup;
 			children = (
+				4085725C27DA0F8900D06CC8 /* Profile */,
 				4085725627D4B52B00D06CC8 /* InfoViewController.swift */,
 				4085725827D4B55300D06CC8 /* FeedViewController.swift */,
 				4085725A27D4B58600D06CC8 /* FeedNavigationController.swift */,
@@ -80,7 +92,6 @@
 				40C48E6F27C8BF6D0072C564 /* Assets.xcassets */,
 				40C48E7127C8BF6D0072C564 /* LaunchScreen.storyboard */,
 				40C48E7427C8BF6D0072C564 /* Info.plist */,
-				40C48E8227C8C53B0072C564 /* ProfileViewController.swift */,
 			);
 			path = Netology_IB_instruments;
 			sourceTree = "<group>";
@@ -157,10 +168,11 @@
 			files = (
 				4085725527D4B50E00D06CC8 /* PostViewController.swift in Sources */,
 				4085725127D4B49600D06CC8 /* TabBarController.swift in Sources */,
+				4085725E27DA0FBD00D06CC8 /* ProfileHeaderView.swift in Sources */,
 				4085725927D4B55300D06CC8 /* FeedViewController.swift in Sources */,
 				40C48E6B27C8BF6A0072C564 /* ViewController.swift in Sources */,
 				4085725727D4B52B00D06CC8 /* InfoViewController.swift in Sources */,
-				40C48E8327C8C53B0072C564 /* ProfileViewController.swift in Sources */,
+				4085726027DA0FE400D06CC8 /* ProfileViewController.swift in Sources */,
 				40C48E6727C8BF6A0072C564 /* AppDelegate.swift in Sources */,
 				4085725B27D4B58600D06CC8 /* FeedNavigationController.swift in Sources */,
 				40C48E6927C8BF6A0072C564 /* SceneDelegate.swift in Sources */,
