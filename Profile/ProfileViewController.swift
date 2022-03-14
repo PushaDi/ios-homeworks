@@ -25,5 +25,6 @@ class ProfileViewController: UIViewController {
         self.view.backgroundColor = .lightGray
         self.title = "Профиль"
         self.view.addSubview(profileHeaderView)
+        
     }
 }

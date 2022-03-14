@@ -11,15 +11,20 @@ class ProfileHeaderView: UIView {
     
     private lazy var profileImageView: UIImageView = UIImageView(image: UIImage(named: "profile image"))
     private lazy var nameLabel: UILabel = UILabel()
-    private lazy var statusField: UITextField = UITextField()
+    private lazy var statusView: UITextView = UITextView()
     private lazy var showStatusButton: UIButton = UIButton()
+    private lazy var statusField: UITextField = UITextField()
+    
+    private var statusText: String = "Waiting for something..."
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupProfileImageView()
         self.setupNameLabel()
-        self.setupShowStatusButton()
+        self.setupStatusView()
         self.setupStatusField()
+        self.setupShowStatusButton()
     }
     
     required init?(coder: NSCoder) {
@@ -39,8 +44,8 @@ class ProfileHeaderView: UIView {
 
         let topConstraint = profileImageView.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor, constant: 16)
         let leadingConstraint = profileImageView.leadingAnchor.constraint(equalTo: self.layoutMarginsGuide.leadingAnchor, constant: 16)
-        let heightConstraint = profileImageView.heightAnchor.constraint(equalToConstant: 130)
-        let widthConstraint = profileImageView.widthAnchor.constraint(equalToConstant: 130)
+        let heightConstraint = profileImageView.heightAnchor.constraint(equalToConstant: 120)
+        let widthConstraint = profileImageView.widthAnchor.constraint(equalToConstant: 120)
         
         NSLayoutConstraint.activate([topConstraint, leadingConstraint, heightConstraint, widthConstraint])
     }
@@ -51,14 +56,14 @@ class ProfileHeaderView: UIView {
         nameLabel.text = "Lazy Shiba"
         nameLabel.font = UIFont(name: "Helvetica-Bold", size: 18)
         nameLabel.textColor = .black
-        nameLabel.textAlignment = .center
+        nameLabel.textAlignment = .natural
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
 
         
         let topConstraint = nameLabel.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor, constant: 27)
-        let trailingContraint = nameLabel.trailingAnchor.constraint(equalTo: self.layoutMarginsGuide.trailingAnchor, constant: 16)
-        let leadingConstraint = nameLabel.leadingAnchor.constraint(equalTo: self.layoutMarginsGuide.leadingAnchor, constant: 5)
+        let trailingContraint = nameLabel.trailingAnchor.constraint(equalTo: self.layoutMarginsGuide.trailingAnchor, constant: -16)
+        let leadingConstraint = nameLabel.leadingAnchor.constraint(equalTo: self.profileImageView.trailingAnchor, constant: 16)
         let heightConstraint = nameLabel.heightAnchor.constraint(equalToConstant: 30)
         
         NSLayoutConstraint.activate([topConstraint, trailingContraint, leadingConstraint, heightConstraint])
@@ -79,30 +84,68 @@ class ProfileHeaderView: UIView {
         
         showStatusButton.translatesAutoresizingMaskIntoConstraints = false
         
-        let topConstraint = showStatusButton.topAnchor.constraint(equalTo: self.profileImageView.bottomAnchor, constant: 16)
+        let topConstraint = showStatusButton.topAnchor.constraint(equalTo: self.statusField.bottomAnchor, constant: 16)
         let leadingConstraint = showStatusButton.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor, constant: 16)
         let trailingConstraint = showStatusButton.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -16)
         let heightContstraint = showStatusButton.heightAnchor.constraint(equalToConstant: 50)
 
         NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint, heightContstraint])
+        
+        showStatusButton.addTarget(self, action: #selector(self.buttonPressed), for: .touchUpInside)
+    }
+    
+    private func setupStatusView() {
+        self.addSubview(statusView)
+        
+        statusView.text = self.statusText
+        statusView.font = UIFont.systemFont(ofSize: 14)
+        statusView.textColor = .gray
+        statusView.backgroundColor = .clear
+        
+        statusView.translatesAutoresizingMaskIntoConstraints = false
+
+        
+        let bottomConstraint = statusView.bottomAnchor.constraint(equalTo: self.nameLabel.bottomAnchor, constant: 40)
+        let leadingConstraint = statusView.leadingAnchor.constraint(equalTo: self.layoutMarginsGuide.leadingAnchor, constant: 152)
+        let trailingConstraint = statusView.trailingAnchor.constraint(equalTo: self.layoutMarginsGuide.trailingAnchor, constant: -16)
+        let heightConstraint = statusView.heightAnchor.constraint(equalToConstant: 25)
+        
+        NSLayoutConstraint.activate([bottomConstraint, leadingConstraint, trailingConstraint, heightConstraint])
     }
     
     private func setupStatusField() {
         self.addSubview(statusField)
         
-        statusField.placeholder = "Waiting for something"
-        statusField.font = UIFont.systemFont(ofSize: 14)
-        statusField.textColor = .gray
+        statusField.addTarget(self, action: #selector(self.statusTextChanged(_:)), for: .editingChanged)
+        
+        statusField.backgroundColor = .white
+        statusField.textColor = .black
+        statusField.font = UIFont.systemFont(ofSize: 15)
+        
+        statusField.layer.borderWidth = 1
+        statusField.layer.borderColor = UIColor.black.cgColor
+        statusField.layer.cornerRadius = 12
+        statusField.clipsToBounds = true
         
         statusField.translatesAutoresizingMaskIntoConstraints = false
-
         
-        let bottomConstraint = statusField.bottomAnchor.constraint(equalTo: self.showStatusButton.topAnchor, constant: -34)
-        let leadingConstraint = statusField.leadingAnchor.constraint(equalTo: self.layoutMarginsGuide.leadingAnchor, constant: 152)
-        let trailingConstraint = statusField.trailingAnchor.constraint(equalTo: self.nameLabel.trailingAnchor)
-        let widthConstraint = statusField.widthAnchor.constraint(equalToConstant: 20)
+        let topConstraint = statusField.topAnchor.constraint(equalTo: self.statusView.bottomAnchor, constant: 16)
+        let leadingConstraint = statusField.leadingAnchor.constraint(equalTo: self.statusView.leadingAnchor)
+        let trailingConstraint = statusField.trailingAnchor.constraint(equalTo: self.statusView.trailingAnchor)
+        let heightConstraint = statusField.heightAnchor.constraint(equalToConstant: 40)
         
-        NSLayoutConstraint.activate([bottomConstraint, leadingConstraint, trailingConstraint, widthConstraint])
+        NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint, heightConstraint])
+    }
+    
+    @objc private func buttonPressed() {
+        self.statusView.text = statusText
+        print(statusView.text!)
+    }
+    
+    @objc private func statusTextChanged(_ textField: UITextField) {
+        if let newStatus = self.statusField.text
+        {
+            statusText = newStatus
+        } else {return}
     }
 }
-
