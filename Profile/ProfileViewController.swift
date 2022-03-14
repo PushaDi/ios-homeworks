@@ -10,10 +10,12 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     private var profileHeaderView = ProfileHeaderView()
+    private var newButton: UIButton = UIButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupView()
+        self.setupButton()
     }
     
     private func setupView() {
@@ -28,5 +30,18 @@ class ProfileViewController: UIViewController {
         let heightConstraint = profileHeaderView.heightAnchor.constraint(equalToConstant: 220)
         
         NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, topConstraint, heightConstraint])
+    }
+    
+    private func setupButton() {
+        self.view.addSubview(newButton)
+        newButton.setTitle("Simply Button", for: .normal)
+        newButton.translatesAutoresizingMaskIntoConstraints = false
+        newButton.backgroundColor = .systemRed
+       
+        let leadingConstraint = newButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
+        let trailingConstraint = newButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+        let bottomConstraint = newButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+        
+        NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, bottomConstraint])
     }
 }
