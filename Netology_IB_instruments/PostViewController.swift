@@ -19,7 +19,6 @@ class PostViewController: UIViewController {
     
     private func setupViewController() {
         self.view.backgroundColor = .systemGray2
-        self.title = self.text
     }
     
     private func setupNavBarButton() {
