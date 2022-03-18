@@ -46,9 +46,9 @@ final class TabBarController: UITabBarController {
         self.viewControllers = itemList.map({ tabBarItem in
             switch tabBarItem {
                 case .feed:
-                    return FeedNavigationController(rootViewController: feedVC)
+                    return UINavigationController(rootViewController: feedVC)
                 case .profile:
-                    return ProfileNavigationController(rootViewController: profileVC)
+                    return UINavigationController(rootViewController: profileVC)
             }
         })
         
