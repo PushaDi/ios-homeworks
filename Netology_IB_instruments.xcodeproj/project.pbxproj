@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		401670EC27E71D6B00D700D3 /* PostStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401670EB27E71D6B00D700D3 /* PostStruct.swift */; };
 		4085725127D4B49600D06CC8 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085725027D4B49600D06CC8 /* TabBarController.swift */; };
 		4085725527D4B50E00D06CC8 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085725427D4B50E00D06CC8 /* PostViewController.swift */; };
 		4085725727D4B52B00D06CC8 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085725627D4B52B00D06CC8 /* InfoViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		401670EB27E71D6B00D700D3 /* PostStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStruct.swift; sourceTree = "<group>"; };
 		4085725027D4B49600D06CC8 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = Netology_IB_instruments/TabBarController.swift; sourceTree = "<group>"; };
 		4085725427D4B50E00D06CC8 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PostViewController.swift; path = Netology_IB_instruments/PostViewController.swift; sourceTree = "<group>"; };
 		4085725627D4B52B00D06CC8 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InfoViewController.swift; path = Netology_IB_instruments/InfoViewController.swift; sourceTree = "<group>"; };
@@ -45,9 +47,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		401670EA27E71D5900D700D3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				401670EB27E71D6B00D700D3 /* PostStruct.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		40C48E5A27C8BF6A0072C564 = {
 			isa = PBXGroup;
 			children = (
+				401670EA27E71D5900D700D3 /* Models */,
 				4085725627D4B52B00D06CC8 /* InfoViewController.swift */,
 				4085725827D4B55300D06CC8 /* FeedViewController.swift */,
 				4085725427D4B50E00D06CC8 /* PostViewController.swift */,
@@ -155,6 +166,7 @@
 				40C48E6B27C8BF6A0072C564 /* ViewController.swift in Sources */,
 				4085725727D4B52B00D06CC8 /* InfoViewController.swift in Sources */,
 				40C48E8327C8C53B0072C564 /* ProfileViewController.swift in Sources */,
+				401670EC27E71D6B00D700D3 /* PostStruct.swift in Sources */,
 				40C48E6727C8BF6A0072C564 /* AppDelegate.swift in Sources */,
 				40C48E6927C8BF6A0072C564 /* SceneDelegate.swift in Sources */,
 			);

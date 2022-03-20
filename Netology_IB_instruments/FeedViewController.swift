@@ -8,10 +8,6 @@
 import UIKit
 
 class FeedViewController: UIViewController {
-    
-    struct PostStruct {
-        let postTitle: String
-    }
 
     private lazy var postButton: UIButton = {
         let postButton = UIButton(frame: .zero)
