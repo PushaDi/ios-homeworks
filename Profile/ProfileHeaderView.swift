@@ -40,7 +40,7 @@ class ProfileHeaderView: UIView {
         profileImageView.layer.borderColor = UIColor.white.cgColor
         profileImageView.clipsToBounds = true
         profileImageView.layer.masksToBounds = true
-        profileImageView.layer.cornerRadius = 65
+        profileImageView.layer.cornerRadius = 60
 
         let topConstraint = profileImageView.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor, constant: 16)
         let leadingConstraint = profileImageView.leadingAnchor.constraint(equalTo: self.layoutMarginsGuide.leadingAnchor, constant: 16)
