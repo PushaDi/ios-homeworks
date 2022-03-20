@@ -33,6 +33,7 @@ final class TabBarController: UITabBarController {
     }
     
     let profileVC = ProfileViewController()
+    let logInVC = LogInViewController()
     let feedVC = FeedViewController()
     
     override func viewDidLoad() {
@@ -48,7 +49,7 @@ final class TabBarController: UITabBarController {
                 case .feed:
                     return FeedNavigationController(rootViewController: feedVC)
                 case .profile:
-                    return ProfileNavigationController(rootViewController: profileVC)
+                    return ProfileNavigationController(rootViewController: logInVC)
             }
         })
         
