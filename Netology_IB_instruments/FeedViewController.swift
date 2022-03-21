@@ -9,7 +9,7 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    struct postStruct {
+    struct PostStruct {
         let postTitle: String
     }
     
@@ -50,8 +50,8 @@ class FeedViewController: UIViewController {
         
     }
     
-    private func createPost(postTitle: String) -> postStruct {
-        return postStruct(postTitle: postTitle)
+    private func createPost(postTitle: String) -> PostStruct {
+        return PostStruct(postTitle: postTitle)
     }
     
     private func setupButtons() {
