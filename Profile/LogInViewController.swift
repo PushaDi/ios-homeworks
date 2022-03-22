@@ -72,11 +72,12 @@ class LogInViewController: UIViewController {
     private lazy var logInButton: UIButton = {
         let logInButton = UIButton()
         logInButton.translatesAutoresizingMaskIntoConstraints = false
+        logInButton.setTitle("Log In", for: .normal)
+        logInButton.setBackgroundImage(UIImage(named: "bluePixel"), for: .normal)
         logInButton.titleLabel?.text = "Log In"
         logInButton.titleLabel?.textColor = .white
         logInButton.layer.cornerRadius = 10
         logInButton.clipsToBounds = true
-        logInButton.setBackgroundImage(UIImage(named: "bluePixel"), for: .normal)
         switch logInButton.state {
             case .normal:
                 logInButton.alpha = 1
@@ -85,6 +86,20 @@ class LogInViewController: UIViewController {
         }
         return logInButton
     }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(self.kbdShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        nc.addObserver(self, selector: #selector(self.kbdHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        let nc = NotificationCenter.default
+        nc.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        nc.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,14 +120,16 @@ class LogInViewController: UIViewController {
     
     private func setupConstraints() {
         let mainScrollViewTopConstraint = self.mainScrollView.topAnchor.constraint(equalTo: self.view.topAnchor)
-        let mainScrollViewBottomConstraint = self.mainScrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        let mainScrollViewBottomConstraint = self.mainScrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         let mainScrollViewLeadingConstraint = self.mainScrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
         let mainScrollViewTrailingConstraint = self.mainScrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         
         let contentViewTopConstraint = self.contentView.topAnchor.constraint(equalTo: self.mainScrollView.topAnchor)
+        let contentViewBottomConstraint = self.contentView.bottomAnchor.constraint(equalTo: self.mainScrollView.bottomAnchor)
         let contentViewLeadingConstraint = self.contentView.leadingAnchor.constraint(equalTo: self.mainScrollView.leadingAnchor)
-        let contentViewHeightConstraint = self.contentView.heightAnchor.constraint(equalTo: self.mainScrollView.heightAnchor)
+        let contentViewTralingConstraint = self.contentView.trailingAnchor.constraint(equalTo: self.mainScrollView.trailingAnchor)
         let contentViewWidthConstraint = self.contentView.widthAnchor.constraint(equalTo: self.mainScrollView.widthAnchor)
+        let contentViewHeightConstraint = self.contentView.heightAnchor.constraint(equalTo: self.view.heightAnchor)
         
         let iconViewTopConstraint = self.iconView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 120)
         let iconViewCenterXConstraint = self.iconView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor)
@@ -124,7 +141,17 @@ class LogInViewController: UIViewController {
         let logInStackViewTrailingConstraint = self.logInStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16)
         let logInStackViewHeightConstraint = self.logInStackView.heightAnchor.constraint(equalToConstant: 100)
         
-        NSLayoutConstraint.activate([mainScrollViewTopConstraint,mainScrollViewBottomConstraint, mainScrollViewLeadingConstraint, mainScrollViewTrailingConstraint, contentViewTopConstraint, contentViewLeadingConstraint, contentViewWidthConstraint, contentViewHeightConstraint, iconViewTopConstraint, iconViewWidthConstraint, iconViewHeightConstraint, iconViewCenterXConstraint, logInStackViewTopConstraint, logInStackViewHeightConstraint, logInStackViewLeadingConstraint, logInStackViewTrailingConstraint])
+        let logInButtonTopConstraint = self.logInButton.topAnchor.constraint(equalTo: self.logInStackView.bottomAnchor, constant: 16)
+        let logInButtonLeadingConstraint = self.logInButton.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16)
+        let logInButtonTrailingConstraint = self.logInButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16)
+        let logInButtonHeightConstraint = self.logInButton.heightAnchor.constraint(equalToConstant: 50)
+        
+        NSLayoutConstraint.activate([
+            mainScrollViewTopConstraint,mainScrollViewBottomConstraint, mainScrollViewLeadingConstraint, mainScrollViewTrailingConstraint,
+            contentViewTopConstraint, contentViewBottomConstraint, contentViewLeadingConstraint, contentViewTralingConstraint, contentViewWidthConstraint, contentViewHeightConstraint,
+            iconViewTopConstraint, iconViewWidthConstraint, iconViewHeightConstraint, iconViewCenterXConstraint,
+            logInStackViewTopConstraint, logInStackViewHeightConstraint, logInStackViewLeadingConstraint, logInStackViewTrailingConstraint,
+            logInButtonTopConstraint, logInButtonLeadingConstraint, logInButtonTrailingConstraint, logInButtonHeightConstraint])
         
         for view in [self.usernameField, self.passwordField] {
             NSLayoutConstraint.activate([
@@ -132,7 +159,22 @@ class LogInViewController: UIViewController {
                 view.trailingAnchor.constraint(equalTo: self.logInStackView.trailingAnchor)
             ])
         }
-        
-
+    }
+    
+    
+    @objc private func kbdShow(notification: NSNotification) {
+        if let kbdSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            self.mainScrollView.contentInset.bottom = kbdSize.height
+            self.mainScrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: kbdSize.height, right: 0)
+        }
+//        let info = notification.userInfo
+//        let kbdSize = info![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+//        self.mainScrollView.contentInset.bottom = kbdSize.height
+//        self.mainScrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: kbdSize.height, right: 0)
+        }
+    
+    @objc private func kbdHide(notification: NSNotification) {
+        self.mainScrollView.contentInset.bottom = .zero
+        self.mainScrollView.verticalScrollIndicatorInsets = .zero
     }
 }
