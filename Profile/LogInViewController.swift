@@ -9,6 +9,9 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
+    private lazy var usernameIsEdited: Bool = false
+    private lazy var passwordIsEdited: Bool = false
+    
     private lazy var mainScrollView: UIScrollView = {
         let mainScrollView = UIScrollView()
         mainScrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -37,6 +40,8 @@ class LogInViewController: UIViewController {
         usernameField.autocapitalizationType = .none
         usernameField.tintColor = UIColor(named: "AccentColor")
         usernameField.placeholder = "Email or phone"
+        usernameField.addTarget(self, action: #selector(didUsernameEdited), for: .editingChanged)
+        
         return usernameField
     }()
     
@@ -52,6 +57,7 @@ class LogInViewController: UIViewController {
         passwordField.isSecureTextEntry = true
         passwordField.layer.borderWidth = 0.5
         passwordField.layer.borderColor = UIColor.lightGray.cgColor
+        usernameField.addTarget(self, action: #selector(didPasswordEdited), for: .editingChanged)
         
         return passwordField
     }()
@@ -84,6 +90,7 @@ class LogInViewController: UIViewController {
             default:
                 logInButton.alpha = 0.8
         }
+        self.logInButton.addTarget(self, action: #selector(self.logInButtonDidTap), for: .touchUpInside)
         return logInButton
     }()
     
@@ -103,6 +110,7 @@ class LogInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = true
         self.configureSubviews()
         self.setupConstraints()
     }
@@ -167,14 +175,26 @@ class LogInViewController: UIViewController {
             self.mainScrollView.contentInset.bottom = kbdSize.height
             self.mainScrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: kbdSize.height, right: 0)
         }
-//        let info = notification.userInfo
-//        let kbdSize = info![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-//        self.mainScrollView.contentInset.bottom = kbdSize.height
-//        self.mainScrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: kbdSize.height, right: 0)
-        }
-    
+    }
+
     @objc private func kbdHide(notification: NSNotification) {
         self.mainScrollView.contentInset.bottom = .zero
         self.mainScrollView.verticalScrollIndicatorInsets = .zero
+    }
+    
+    @objc private func didUsernameEdited() {
+        self.usernameIsEdited = true
+    }
+    
+    @objc private func didPasswordEdited() {
+        self.passwordIsEdited = true
+    }
+    
+    @objc private func logInButtonDidTap() {
+        let profileVc = ProfileViewController()
+        if usernameIsEdited && passwordIsEdited {
+            self.navigationController?.navigationBar.isHidden = false
+            self.navigationController?.pushViewController(profileVc, animated: true)
+        } else {return}
     }
 }
