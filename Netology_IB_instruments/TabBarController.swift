@@ -57,7 +57,7 @@ final class TabBarController: UITabBarController {
             vc.tabBarItem.title = itemList[index].title
             vc.tabBarItem.image = itemList[index].image
             })
-        
+        tabBar.isTranslucent = false
         tabBar.backgroundColor = .white
     }
 }

@@ -53,6 +53,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4026AFF027EAF22D00447BA2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		4085725C27DA0F8900D06CC8 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +73,7 @@
 		40C48E5A27C8BF6A0072C564 = {
 			isa = PBXGroup;
 			children = (
+				4026AFF027EAF22D00447BA2 /* Models */,
 				4085725C27DA0F8900D06CC8 /* Profile */,
 				4085725627D4B52B00D06CC8 /* InfoViewController.swift */,
 				4085725827D4B55300D06CC8 /* FeedViewController.swift */,

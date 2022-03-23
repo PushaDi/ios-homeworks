@@ -40,7 +40,7 @@ class LogInViewController: UIViewController {
         usernameField.autocapitalizationType = .none
         usernameField.tintColor = UIColor(named: "AccentColor")
         usernameField.placeholder = "Email or phone"
-        usernameField.addTarget(self, action: #selector(didUsernameEdited), for: .editingChanged)
+        usernameField.addTarget(self, action: #selector(self.didUsernameEdited), for: .editingChanged)
         
         return usernameField
     }()
@@ -57,7 +57,7 @@ class LogInViewController: UIViewController {
         passwordField.isSecureTextEntry = true
         passwordField.layer.borderWidth = 0.5
         passwordField.layer.borderColor = UIColor.lightGray.cgColor
-        usernameField.addTarget(self, action: #selector(didPasswordEdited), for: .editingChanged)
+        passwordField.addTarget(self, action: #selector(self.didPasswordEdited), for: .editingChanged)
         
         return passwordField
     }()
@@ -80,8 +80,7 @@ class LogInViewController: UIViewController {
         logInButton.translatesAutoresizingMaskIntoConstraints = false
         logInButton.setTitle("Log In", for: .normal)
         logInButton.setBackgroundImage(UIImage(named: "bluePixel"), for: .normal)
-        logInButton.titleLabel?.text = "Log In"
-        logInButton.titleLabel?.textColor = .white
+        logInButton.setTitleColor(.white, for: .normal)
         logInButton.layer.cornerRadius = 10
         logInButton.clipsToBounds = true
         switch logInButton.state {
@@ -90,7 +89,7 @@ class LogInViewController: UIViewController {
             default:
                 logInButton.alpha = 0.8
         }
-        self.logInButton.addTarget(self, action: #selector(self.logInButtonDidTap), for: .touchUpInside)
+        logInButton.addTarget(self, action: #selector(self.logInButtonDidTap), for: .touchUpInside)
         return logInButton
     }()
     
@@ -193,7 +192,6 @@ class LogInViewController: UIViewController {
     @objc private func logInButtonDidTap() {
         let profileVc = ProfileViewController()
         if usernameIsEdited && passwordIsEdited {
-            self.navigationController?.navigationBar.isHidden = false
             self.navigationController?.pushViewController(profileVc, animated: true)
         } else {return}
     }

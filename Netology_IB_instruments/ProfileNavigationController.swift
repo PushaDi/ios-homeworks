@@ -21,7 +21,7 @@ class ProfileNavigationController: UINavigationController {
         navBarAppearance.backgroundColor = .white
         
         self.navigationBar.isTranslucent = false
-        
+        self.navigationBar.isHidden = true
         self.navigationBar.standardAppearance = navBarAppearance
         self.navigationBar.scrollEdgeAppearance = navBarAppearance
     }
