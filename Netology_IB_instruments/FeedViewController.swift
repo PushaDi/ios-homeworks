@@ -9,9 +9,6 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    struct PostStruct {
-        let postTitle: String
-    }
     
     private var customStackView = UIStackView()
     

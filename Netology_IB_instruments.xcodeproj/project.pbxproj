@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		401670E727E6294200D700D3 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401670E627E6294200D700D3 /* LogInViewController.swift */; };
+		4026AFF227EB0FEA00447BA2 /* PostStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026AFF127EB0FEA00447BA2 /* PostStruct.swift */; };
 		4085725127D4B49600D06CC8 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085725027D4B49600D06CC8 /* TabBarController.swift */; };
 		4085725327D4B4D800D06CC8 /* ProfileNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085725227D4B4D800D06CC8 /* ProfileNavigationController.swift */; };
 		4085725527D4B50E00D06CC8 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085725427D4B50E00D06CC8 /* PostViewController.swift */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		401670E627E6294200D700D3 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		4026AFF127EB0FEA00447BA2 /* PostStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostStruct.swift; sourceTree = "<group>"; };
 		4085725027D4B49600D06CC8 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = Netology_IB_instruments/TabBarController.swift; sourceTree = "<group>"; };
 		4085725227D4B4D800D06CC8 /* ProfileNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileNavigationController.swift; path = Netology_IB_instruments/ProfileNavigationController.swift; sourceTree = "<group>"; };
 		4085725427D4B50E00D06CC8 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PostViewController.swift; path = Netology_IB_instruments/PostViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 		4026AFF027EAF22D00447BA2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4026AFF127EB0FEA00447BA2 /* PostStruct.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 				4085725527D4B50E00D06CC8 /* PostViewController.swift in Sources */,
 				4085725127D4B49600D06CC8 /* TabBarController.swift in Sources */,
 				4085725E27DA0FBD00D06CC8 /* ProfileHeaderView.swift in Sources */,
+				4026AFF227EB0FEA00447BA2 /* PostStruct.swift in Sources */,
 				4085725927D4B55300D06CC8 /* FeedViewController.swift in Sources */,
 				40C48E6B27C8BF6A0072C564 /* ViewController.swift in Sources */,
 				4085725727D4B52B00D06CC8 /* InfoViewController.swift in Sources */,
