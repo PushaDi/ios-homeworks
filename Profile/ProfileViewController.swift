@@ -17,7 +17,7 @@ class ProfileViewController: UIViewController {
         return postsTableView
     }()
     
-    private var dataSource: [PostStruct]
+    private var dataSource: [PostStruct] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,13 +25,11 @@ class ProfileViewController: UIViewController {
         self.setupConstraints()
     }
     
-    
-    
     private func configureSubviews() {
         self.view.addSubview(postsTableView)
     }
     
-    private func setupConstraints()  {
+    private func setupConstraints() {
         let postTableViewTopConstraint = self.postsTableView.topAnchor.constraint(equalTo: self.view.topAnchor)
         let postTableViewBottomConstraint = self.postsTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         let postTableViewLeadingConstraint = self.postsTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
@@ -53,5 +51,4 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return ProfileHeaderView()
     }
-    
 }
