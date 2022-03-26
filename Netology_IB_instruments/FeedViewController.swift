@@ -47,9 +47,6 @@ class FeedViewController: UIViewController {
         
     }
     
-    private func createPost(postTitle: String) -> PostStruct {
-        return PostStruct(postTitle: postTitle)
-    }
     
     private func setupButtons() {
         self.firstButton.backgroundColor = .systemBlue
@@ -76,3 +73,4 @@ class FeedViewController: UIViewController {
         self.navigationController?.pushViewController(postVc, animated: true)
     }
 }
+

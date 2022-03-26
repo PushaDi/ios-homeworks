@@ -9,15 +9,19 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    
     private lazy var postsTableView: UITableView = {
         let postsTableView = UITableView()
+        postsTableView.rowHeight = UITableView.automaticDimension
         postsTableView.dataSource = self
         postsTableView.delegate = self
         postsTableView.translatesAutoresizingMaskIntoConstraints = false
+        postsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
+        postsTableView.register(PostTableViewCell.self, forCellReuseIdentifier: "PostCell")
         return postsTableView
     }()
     
-    private var dataSource: [PostStruct] = []
+    private var dataSource: [PostStruct] = postsCollection
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,11 +45,19 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return postsCollection.count
+        return self.dataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return PostTableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as? PostTableViewCell else {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
+                    return cell
+        }
+        
+        let posts = self.dataSource[indexPath.row]
+        let viewModel = PostTableViewCell.ViewModel(username: posts.author, imageName: posts.image, description: posts.description, views: posts.views, likes: posts.likes)
+                cell.setup(with: viewModel)
+                return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
