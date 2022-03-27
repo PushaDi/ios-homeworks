@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileHeaderView: UIView {
+class ProfileHeaderView: UITableViewHeaderFooterView {
     
     private lazy var profileImageView: UIImageView = UIImageView(image: UIImage(named: "profile image"))
     private lazy var nameLabel: UILabel = UILabel()
@@ -17,8 +17,8 @@ class ProfileHeaderView: UIView {
     
     private var statusText: String = "Waiting for something..."
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         self.setupProfileImageView()
         self.setupNameLabel()
         self.setupStatusView()

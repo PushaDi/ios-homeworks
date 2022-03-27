@@ -13,11 +13,12 @@ class ProfileViewController: UIViewController {
     private lazy var postsTableView: UITableView = {
         let postsTableView = UITableView()
         postsTableView.rowHeight = UITableView.automaticDimension
+        postsTableView.estimatedRowHeight = 300
         postsTableView.dataSource = self
         postsTableView.delegate = self
         postsTableView.translatesAutoresizingMaskIntoConstraints = false
-        postsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
         postsTableView.register(PostTableViewCell.self, forCellReuseIdentifier: "PostCell")
+        postsTableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: "ProfileHeader")
         return postsTableView
     }()
     
@@ -49,18 +50,19 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as? PostTableViewCell else {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "DefaultCell", for: indexPath)
-                    return cell
-        }
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
         let posts = self.dataSource[indexPath.row]
         let viewModel = PostTableViewCell.ViewModel(username: posts.author, imageName: posts.image, description: posts.description, views: posts.views, likes: posts.likes)
-                cell.setup(with: viewModel)
-                return cell
+        cell.setup(with: viewModel)
+        return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return ProfileHeaderView()
     }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 250
+    }
+    
 }
