@@ -9,9 +9,6 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    struct postStruct {
-        let postTitle: String
-    }
     
     private var customStackView = UIStackView()
     
@@ -50,9 +47,6 @@ class FeedViewController: UIViewController {
         
     }
     
-    private func createPost(postTitle: String) -> postStruct {
-        return postStruct(postTitle: postTitle)
-    }
     
     private func setupButtons() {
         self.firstButton.backgroundColor = .systemBlue
@@ -79,3 +73,4 @@ class FeedViewController: UIViewController {
         self.navigationController?.pushViewController(postVc, animated: true)
     }
 }
+

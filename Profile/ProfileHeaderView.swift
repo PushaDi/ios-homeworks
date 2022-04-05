@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileHeaderView: UIView {
+class ProfileHeaderView: UITableViewHeaderFooterView {
     
     private lazy var profileImageView: UIImageView = UIImageView(image: UIImage(named: "profile image"))
     private lazy var nameLabel: UILabel = UILabel()
@@ -17,9 +17,8 @@ class ProfileHeaderView: UIView {
     
     private var statusText: String = "Waiting for something..."
     
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         self.setupProfileImageView()
         self.setupNameLabel()
         self.setupStatusView()
@@ -60,7 +59,6 @@ class ProfileHeaderView: UIView {
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        
         let topConstraint = nameLabel.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor, constant: 27)
         let trailingContraint = nameLabel.trailingAnchor.constraint(equalTo: self.layoutMarginsGuide.trailingAnchor, constant: -16)
         let leadingConstraint = nameLabel.leadingAnchor.constraint(equalTo: self.profileImageView.trailingAnchor, constant: 16)
@@ -68,7 +66,6 @@ class ProfileHeaderView: UIView {
         
         NSLayoutConstraint.activate([topConstraint, trailingContraint, leadingConstraint, heightConstraint])
     }
-    
     
     private func setupShowStatusButton() {
         self.addSubview(showStatusButton)
@@ -95,6 +92,7 @@ class ProfileHeaderView: UIView {
     }
     
     private func setupStatusView() {
+        self.isOpaque = false
         self.addSubview(statusView)
         
         statusView.text = self.statusText
@@ -104,7 +102,6 @@ class ProfileHeaderView: UIView {
         
         statusView.translatesAutoresizingMaskIntoConstraints = false
 
-        
         let bottomConstraint = statusView.bottomAnchor.constraint(equalTo: self.nameLabel.bottomAnchor, constant: 40)
         let leadingConstraint = statusView.leadingAnchor.constraint(equalTo: self.layoutMarginsGuide.leadingAnchor, constant: 152)
         let trailingConstraint = statusView.trailingAnchor.constraint(equalTo: self.layoutMarginsGuide.trailingAnchor, constant: -16)
