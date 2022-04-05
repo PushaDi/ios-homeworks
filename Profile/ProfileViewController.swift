@@ -13,7 +13,7 @@ class ProfileViewController: UIViewController {
     private lazy var postsTableView: UITableView = {
         let postsTableView = UITableView()
         postsTableView.rowHeight = UITableView.automaticDimension
-        postsTableView.estimatedRowHeight = 300
+        postsTableView.estimatedRowHeight = 400
         postsTableView.dataSource = self
         postsTableView.delegate = self
         postsTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,8 +52,9 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
         let posts = self.dataSource[indexPath.row]
-        let viewModel = PostTableViewCell.ViewModel(username: posts.author, imageName: posts.image, description: posts.description, views: posts.views, likes: posts.likes)
+        let viewModel = PostTableViewCell.ViewModel(username: posts.author, image: UIImage(named: posts.image) ?? UIImage(), description: posts.description, views: posts.views, likes: posts.likes)
         cell.setup(with: viewModel)
+        cell.layoutSubviews()
         return cell
     }
     
@@ -61,8 +62,18 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         return ProfileHeaderView()
     }
     
+    
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 250
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
     
 }

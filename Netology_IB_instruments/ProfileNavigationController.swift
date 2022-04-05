@@ -8,7 +8,7 @@
 import UIKit
 
 class ProfileNavigationController: UINavigationController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupNavBar()
@@ -19,7 +19,6 @@ class ProfileNavigationController: UINavigationController {
         navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navBarAppearance.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navBarAppearance.backgroundColor = .white
-        
         self.navigationBar.isTranslucent = false
         self.navigationBar.isHidden = true
         self.navigationBar.standardAppearance = navBarAppearance

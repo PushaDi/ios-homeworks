@@ -92,6 +92,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     }
     
     private func setupStatusView() {
+        self.isOpaque = false
         self.addSubview(statusView)
         
         statusView.text = self.statusText
