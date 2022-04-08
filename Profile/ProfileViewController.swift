@@ -19,6 +19,7 @@ class ProfileViewController: UIViewController {
         postsTableView.translatesAutoresizingMaskIntoConstraints = false
         postsTableView.register(PostTableViewCell.self, forCellReuseIdentifier: "PostCell")
         postsTableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: "ProfileHeader")
+        postsTableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "PhotosCell")
         return postsTableView
     }()
     
