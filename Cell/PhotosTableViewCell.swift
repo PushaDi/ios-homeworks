@@ -43,13 +43,14 @@ final class PhotosTableViewCell: UITableViewCell {
     }
     
     private func fillInStackView(){
-        for photoName in ["photo0","photo1", "photo2", "photo3", "photo4"] {
+        for photoName in ["photo0","photo1", "photo2", "photo3"] {
             let photoView = UIImageView(image: UIImage(named: photoName))
             photoView.translatesAutoresizingMaskIntoConstraints = false
+            photoView.contentMode = .scaleAspectFill
             photoView.layer.cornerRadius = 6
             photoView.clipsToBounds = true
             photoView.widthAnchor.constraint(equalToConstant: (UIScreen.main.bounds.width - 48)/4).isActive = true
-        
+            photoView.heightAnchor.constraint(equalToConstant: (UIScreen.main.bounds.width - 48)/4).isActive = true
             self.previewStackView.addArrangedSubview(photoView)
         }
     }
@@ -68,13 +69,13 @@ final class PhotosTableViewCell: UITableViewCell {
         let photosTextLabelConstraints = [photosTextLabelTopConstraint, photosTextLabelLeadingConstraint]
         
         let arrowImageViewCenterYConstraint =  self.arrowImageView.centerYAnchor.constraint(equalTo: self.photosTextLabel.centerYAnchor)
-        let arrowImageViewTrailingConstraint = self.arrowImageView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: 12)
+        let arrowImageViewTrailingConstraint = self.arrowImageView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -12)
         
         let arrowImageViewConstraints = [arrowImageViewCenterYConstraint, arrowImageViewTrailingConstraint]
         
         let previewStackViewTopConstraint = self.previewStackView.topAnchor.constraint(equalTo: self.photosTextLabel.bottomAnchor, constant: 12)
         let previewStackViewLeadingConstraint = self.previewStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 12)
-        let previewStackViewTrailingConstraint = self.previewStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: 12)
+        let previewStackViewTrailingConstraint = self.previewStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -12)
         let previewStackViewBottomConstraint = self.previewStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -12)
         
         let previewStackViewConstraints = [previewStackViewTopConstraint, previewStackViewLeadingConstraint, previewStackViewTrailingConstraint, previewStackViewBottomConstraint]

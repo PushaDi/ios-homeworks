@@ -13,7 +13,7 @@ class ProfileViewController: UIViewController {
     private lazy var postsTableView: UITableView = {
         let postsTableView = UITableView()
         postsTableView.rowHeight = UITableView.automaticDimension
-        postsTableView.estimatedRowHeight = 400
+        postsTableView.estimatedRowHeight = 50
         postsTableView.dataSource = self
         postsTableView.delegate = self
         postsTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -47,20 +47,32 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataSource.count
+        if section == 0 {
+            return 1
+        } else {
+            return self.dataSource.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
-        let posts = self.dataSource[indexPath.row]
-        let viewModel = PostTableViewCell.ViewModel(username: posts.author, image: UIImage(named: posts.image) ?? UIImage(), description: posts.description, views: posts.views, likes: posts.likes)
-        cell.setup(with: viewModel)
-        cell.layoutSubviews()
-        return cell
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PhotosCell", for: indexPath) as! PhotosTableViewCell
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
+            let posts = self.dataSource[indexPath.row]
+            let viewModel = PostTableViewCell.ViewModel(username: posts.author, image: UIImage(named: posts.image) ?? UIImage(), description: posts.description, views: posts.views, likes: posts.likes)
+            cell.setup(with: viewModel)
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return ProfileHeaderView()
+        if section == 0 {
+            return ProfileHeaderView()
+        } else {
+            return nil
+        }
     }
     
     
@@ -69,12 +81,19 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 250
+        if section == 0 {
+            return 250
+        } else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
     
 }
