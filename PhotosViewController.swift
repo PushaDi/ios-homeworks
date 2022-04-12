@@ -69,8 +69,6 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
             return cell
         }
         if let photo = UIImage(named: "photo\(indexPath.item)") {
-            print(indexPath.item)
-            print(photo)
             cell.setup(with: photo)
         } else {
             cell.setup(with: UIImage(systemName: "photo")!)
