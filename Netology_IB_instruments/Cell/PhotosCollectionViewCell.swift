@@ -8,7 +8,9 @@
 import UIKit
 
 class PhotosCollectionViewCell: UICollectionViewCell {
-    
+    struct ViewModel: ViewModelProtocol {
+        let image: UIImage
+    }
     private lazy var photoView: UIImageView = {
         let photoView = UIImageView()
         photoView.translatesAutoresizingMaskIntoConstraints = false
@@ -26,10 +28,6 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(with image: UIImage) {
-        self.photoView.image = image
-    }
-    
     private func configureSubview() {
         self.contentView.addSubview(self.photoView)
         
@@ -39,5 +37,12 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         let widthConstraint = self.photoView.widthAnchor.constraint(equalTo: self.contentView.widthAnchor)
         
         NSLayoutConstraint.activate([centerXConstraint, centerYConstraint, heightConstraint, widthConstraint])
+    }
+}
+
+extension PhotosCollectionViewCell: Setupable {
+    func setup(with viewModel: ViewModelProtocol) {
+        guard let viewModel = viewModel as? ViewModel else { return }
+        self.photoView.image = viewModel.image
     }
 }

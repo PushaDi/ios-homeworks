@@ -8,6 +8,7 @@
 import UIKit
 
 final class PhotosTableViewCell: UITableViewCell {
+    
     private lazy var photosTextLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false

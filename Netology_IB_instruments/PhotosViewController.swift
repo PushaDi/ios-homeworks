@@ -8,6 +8,8 @@
 import UIKit
 
 class PhotosViewController: UIViewController {
+    
+    private var dataSource: [String] = photoAlbum
 
     private lazy var photosLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -68,11 +70,10 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DefaultCell", for: indexPath)
             return cell
         }
-        if let photo = UIImage(named: "photo\(indexPath.item)") {
-            cell.setup(with: photo)
-        } else {
-            cell.setup(with: UIImage(systemName: "photo")!)
-        }
+        
+        let photo = UIImage(named: self.dataSource[indexPath.row]) ?? UIImage()
+        let viewModel = PhotosCollectionViewCell.ViewModel(image: photo)
+        cell.setup(with: viewModel)
         return cell
     }
     
