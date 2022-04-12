@@ -13,6 +13,7 @@
 		4026AFF727EF9F2C00447BA2 /* Setupable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026AFF627EF9F2B00447BA2 /* Setupable.swift */; };
 		4026AFF927FCA7C500447BA2 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026AFF827FCA7C500447BA2 /* PhotosTableViewCell.swift */; };
 		4026AFFD2801E08E00447BA2 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026AFFC2801E08E00447BA2 /* PhotosViewController.swift */; };
+		4026AFFF28045F5600447BA2 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026AFFE28045F5600447BA2 /* PhotosCollectionViewCell.swift */; };
 		4085725127D4B49600D06CC8 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085725027D4B49600D06CC8 /* TabBarController.swift */; };
 		4085725327D4B4D800D06CC8 /* ProfileNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085725227D4B4D800D06CC8 /* ProfileNavigationController.swift */; };
 		4085725527D4B50E00D06CC8 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085725427D4B50E00D06CC8 /* PostViewController.swift */; };
@@ -35,6 +36,7 @@
 		4026AFF627EF9F2B00447BA2 /* Setupable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setupable.swift; sourceTree = "<group>"; };
 		4026AFF827FCA7C500447BA2 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		4026AFFC2801E08E00447BA2 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = SOURCE_ROOT; };
+		4026AFFE28045F5600447BA2 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		4085725027D4B49600D06CC8 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = Netology_IB_instruments/TabBarController.swift; sourceTree = "<group>"; };
 		4085725227D4B4D800D06CC8 /* ProfileNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileNavigationController.swift; path = Netology_IB_instruments/ProfileNavigationController.swift; sourceTree = "<group>"; };
 		4085725427D4B50E00D06CC8 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PostViewController.swift; path = Netology_IB_instruments/PostViewController.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 			children = (
 				4026AFF427EEFD3E00447BA2 /* PostTableViewCell.swift */,
 				4026AFF827FCA7C500447BA2 /* PhotosTableViewCell.swift */,
+				4026AFFE28045F5600447BA2 /* PhotosCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -85,7 +88,6 @@
 			children = (
 				4085725D27DA0FBD00D06CC8 /* ProfileHeaderView.swift */,
 				4085725F27DA0FE400D06CC8 /* ProfileViewController.swift */,
-				4026AFFC2801E08E00447BA2 /* PhotosViewController.swift */,
 				401670E627E6294200D700D3 /* LogInViewController.swift */,
 			);
 			path = Profile;
@@ -100,6 +102,7 @@
 				4085725C27DA0F8900D06CC8 /* Profile */,
 				4085725627D4B52B00D06CC8 /* InfoViewController.swift */,
 				4085725827D4B55300D06CC8 /* FeedViewController.swift */,
+				4026AFFC2801E08E00447BA2 /* PhotosViewController.swift */,
 				4085725A27D4B58600D06CC8 /* FeedNavigationController.swift */,
 				4085725227D4B4D800D06CC8 /* ProfileNavigationController.swift */,
 				4085725427D4B50E00D06CC8 /* PostViewController.swift */,
@@ -211,6 +214,7 @@
 				40C48E6B27C8BF6A0072C564 /* ViewController.swift in Sources */,
 				4085725727D4B52B00D06CC8 /* InfoViewController.swift in Sources */,
 				4026AFF527EEFD3E00447BA2 /* PostTableViewCell.swift in Sources */,
+				4026AFFF28045F5600447BA2 /* PhotosCollectionViewCell.swift in Sources */,
 				4085726027DA0FE400D06CC8 /* ProfileViewController.swift in Sources */,
 				40C48E6727C8BF6A0072C564 /* AppDelegate.swift in Sources */,
 				401670E727E6294200D700D3 /* LogInViewController.swift in Sources */,

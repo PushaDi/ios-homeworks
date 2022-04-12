@@ -33,6 +33,7 @@ class ProfileViewController: UIViewController {
     
     private func configureSubviews() {
         self.view.addSubview(postsTableView)
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     private func setupConstraints() {
