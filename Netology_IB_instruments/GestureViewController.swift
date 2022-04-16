@@ -99,10 +99,11 @@ class GestureViewController: UIViewController {
     
     private var statusText: String = "Waiting for something..."
     
-    private var profileImageViewTopConstraint: NSLayoutConstraint?
-    private var profileImageViewLeadingConstraint: NSLayoutConstraint?
     private var profileImageViewHeightConstraint: NSLayoutConstraint?
     private var profileImageViewWidthConstraint: NSLayoutConstraint?
+    private var profileImageViewCenterXConstraint: NSLayoutConstraint?
+    private var profileImageViewSafeAreaCenterYConstraint: NSLayoutConstraint?
+    private var profileImageViewCenterYConstraint:NSLayoutConstraint?
     
     private func setupView() {
         self.view.backgroundColor = .systemGray
@@ -116,10 +117,11 @@ class GestureViewController: UIViewController {
     }
     
     private func setupConstraints() {
-        self.profileImageViewTopConstraint = self.profileImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16)
-        self.profileImageViewLeadingConstraint = self.profileImageView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16)
+        self.profileImageViewCenterXConstraint = self.profileImageView.centerXAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 76)
+        self.profileImageViewSafeAreaCenterYConstraint = self.profileImageView.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 76)
         self.profileImageViewHeightConstraint = self.profileImageView.heightAnchor.constraint(equalToConstant: 120)
         self.profileImageViewWidthConstraint = self.profileImageView.widthAnchor.constraint(equalToConstant: 120)
+        self.profileImageViewCenterYConstraint = self.profileImageView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
         
         let nameLabelTopConstraint = nameLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 27)
         let nameLabelTrailingContraint = nameLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16)
@@ -152,7 +154,7 @@ class GestureViewController: UIViewController {
         let exitButtonTrailingConstraint = self.exitButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5)
         
         NSLayoutConstraint.activate([
-            self.profileImageViewTopConstraint, self.profileImageViewLeadingConstraint, self.profileImageViewHeightConstraint, self.profileImageViewWidthConstraint,
+            self.profileImageViewCenterXConstraint, self.profileImageViewSafeAreaCenterYConstraint, self.profileImageViewHeightConstraint, self.profileImageViewWidthConstraint,
             nameLabelTopConstraint, nameLabelTrailingContraint, nameLabelLeadingConstraint, nameLabelHeightConstraint,
             showStatusButtonTopConstraint, showStatusButtonLeadingConstraint, showStatusButtonTrailingConstraint, showStatusButtonHeightContstraint,
             statusViewBottomConstraint, statusViewLeadingConstraint, statusViewTrailingConstraint, statusViewHeightConstraint,
@@ -172,14 +174,14 @@ class GestureViewController: UIViewController {
     
     @objc private func handleProfileImageTapGesture(_ gestureRecogniser: UITapGestureRecognizer) {
         guard self.profileImageTapGestureRecogniser === gestureRecogniser else { return }
+        
         self.backgroundView.isHidden = false
         self.backgroundView.alpha = 0.5
         self.view.bringSubviewToFront(self.backgroundView)
         self.view.bringSubviewToFront(self.profileImageView)
-        self.profileImageViewLeadingConstraint?.isActive = false
-        self.profileImageViewTopConstraint?.isActive = false
-        self.profileImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        self.profileImageView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        self.profileImageViewCenterXConstraint?.constant = UIScreen.main.bounds.width / 2
+        self.profileImageViewCenterYConstraint?.isActive = true
+        self.profileImageViewSafeAreaCenterYConstraint?.isActive = false
         self.profileImageViewWidthConstraint?.constant = UIScreen.main.bounds.width
         self.profileImageViewHeightConstraint?.constant = UIScreen.main.bounds.width
         self.profileImageView.layer.cornerRadius = 0
@@ -207,10 +209,9 @@ class GestureViewController: UIViewController {
         } completion: {_ in
             self.backgroundView.isHidden = true
             self.backgroundView.alpha = 0
-            self.profileImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = false
-            self.profileImageView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = false
-            self.profileImageViewLeadingConstraint?.isActive = true
-            self.profileImageViewTopConstraint?.isActive = true
+            self.profileImageViewCenterXConstraint?.constant = 76
+            self.profileImageViewCenterYConstraint?.isActive = false
+            self.profileImageViewSafeAreaCenterYConstraint?.isActive = true
             self.profileImageViewWidthConstraint?.constant = 120
             self.profileImageViewHeightConstraint?.constant = 120
             self.profileImageView.layer.cornerRadius = 60
