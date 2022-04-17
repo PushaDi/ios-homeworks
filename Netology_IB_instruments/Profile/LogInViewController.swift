@@ -220,7 +220,14 @@ class LogInViewController: UIViewController {
             if self.usernameField.text == username && self.passwordField.text == password {
                 let profileVc = ProfileViewController()
                 self.navigationController?.pushViewController(profileVc, animated: true)
-            } else { return }
+            } else {
+                let wrongPasswordAlert = UIAlertController(title: "Неправильный логин и(или) пароль", message: "Проверьте правильность введенных данных!", preferredStyle: .alert)
+                wrongPasswordAlert.addAction(UIAlertAction(title: "Ввести заново", style: .default, handler: {action in enterAgain()}))
+                
+                func enterAgain() {return}
+                
+                self.present(wrongPasswordAlert, animated: true, completion: nil)
+            }
         } else {return}
     }
     
