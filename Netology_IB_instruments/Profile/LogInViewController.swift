@@ -53,8 +53,19 @@ class LogInViewController: UIViewController {
         passwordField.isSecureTextEntry = true
         passwordField.layer.borderWidth = 0.5
         passwordField.layer.borderColor = UIColor.lightGray.cgColor
-        
+        passwordField.addTarget(self, action: #selector(self.checkPasswordLength), for: .editingDidEnd)
         return passwordField
+    }()
+    
+    private lazy var warningLabel: UILabel = {
+        let warningLabel = UILabel()
+        warningLabel.translatesAutoresizingMaskIntoConstraints = false
+        warningLabel.text = "Слишком короткий пароль!"
+        warningLabel.textColor = .systemRed
+        warningLabel.font = .systemFont(ofSize: 12)
+        warningLabel.isHidden = true
+        warningLabel.alpha = 0
+        return warningLabel
     }()
     
     private lazy var logInStackView: UIStackView = {
@@ -110,10 +121,12 @@ class LogInViewController: UIViewController {
     }
     
     private func configureSubviews() {
+        self.view.backgroundColor = .white
         self.view.addSubview(self.mainScrollView)
         self.mainScrollView.addSubview(self.contentView)
         self.contentView.addSubview(self.iconView)
         self.contentView.addSubview(self.logInStackView)
+        self.contentView.addSubview(self.warningLabel)
         self.logInStackView.addArrangedSubview(self.usernameField)
         self.logInStackView.addArrangedSubview(self.passwordField)
         self.contentView.addSubview(self.logInButton)
@@ -143,6 +156,11 @@ class LogInViewController: UIViewController {
         let logInStackViewTrailingConstraint = self.logInStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16)
         let logInStackViewHeightConstraint = self.logInStackView.heightAnchor.constraint(equalToConstant: 100)
         
+        let warninglabelTopConstraint = self.warningLabel.topAnchor.constraint(equalTo: self.logInStackView.bottomAnchor, constant: 2)
+        let warningLabelLeadingConstraint = self.warningLabel.leadingAnchor.constraint(equalTo: self.logInStackView.leadingAnchor)
+        let warningLabelTrailingConstraint = self.warningLabel.trailingAnchor.constraint(equalTo: self.logInStackView.trailingAnchor)
+        let warningLabelHeightConstraint = self.warningLabel.heightAnchor.constraint(equalToConstant: 12)
+        
         let logInButtonTopConstraint = self.logInButton.topAnchor.constraint(equalTo: self.logInStackView.bottomAnchor, constant: 16)
         let logInButtonLeadingConstraint = self.logInButton.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16)
         let logInButtonTrailingConstraint = self.logInButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16)
@@ -152,6 +170,7 @@ class LogInViewController: UIViewController {
             mainScrollViewTopConstraint,mainScrollViewBottomConstraint, mainScrollViewLeadingConstraint, mainScrollViewTrailingConstraint,
             contentViewTopConstraint, contentViewBottomConstraint, contentViewLeadingConstraint, contentViewTralingConstraint, contentViewWidthConstraint, contentViewHeightConstraint,
             iconViewTopConstraint, iconViewWidthConstraint, iconViewHeightConstraint, iconViewCenterXConstraint,
+            warninglabelTopConstraint, warningLabelLeadingConstraint, warningLabelTrailingConstraint, warningLabelHeightConstraint,
             logInStackViewTopConstraint, logInStackViewHeightConstraint, logInStackViewLeadingConstraint, logInStackViewTrailingConstraint,
             logInButtonTopConstraint, logInButtonLeadingConstraint, logInButtonTrailingConstraint, logInButtonHeightConstraint])
         
@@ -203,5 +222,32 @@ class LogInViewController: UIViewController {
                 self.navigationController?.pushViewController(profileVc, animated: true)
             } else { return }
         } else {return}
+    }
+    
+    @objc private func checkPasswordLength() {
+        if let enteredPassword = self.passwordField.text {
+            if enteredPassword.count < 5 {
+                UIView.animate(withDuration: 0.5) {
+                    self.warningLabel.isHidden = false
+                    self.warningLabel.alpha = 1
+                } completion: { _ in
+                    
+                }
+            } else {
+                UIView.animate(withDuration: 0.5) {
+                    self.warningLabel.isHidden = true
+                    self.warningLabel.alpha = 0
+                } completion: { _ in
+                    
+                }
+            }
+        } else {
+            UIView.animate(withDuration: 0.5) {
+                self.warningLabel.isHidden = false
+                self.warningLabel.alpha = 1
+            } completion: { _ in
+                
+            }
+        }
     }
 }
