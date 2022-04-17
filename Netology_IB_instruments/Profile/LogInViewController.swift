@@ -9,9 +9,6 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
-    private lazy var usernameIsEdited: Bool = false
-    private lazy var passwordIsEdited: Bool = false
-    
     private lazy var mainScrollView: UIScrollView = {
         let mainScrollView = UIScrollView()
         mainScrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +37,6 @@ class LogInViewController: UIViewController {
         usernameField.autocapitalizationType = .none
         usernameField.tintColor = UIColor(named: "AccentColor")
         usernameField.placeholder = "Email or phone"
-        usernameField.addTarget(self, action: #selector(self.didUsernameEdited), for: .editingChanged)
         
         return usernameField
     }()
@@ -57,7 +53,6 @@ class LogInViewController: UIViewController {
         passwordField.isSecureTextEntry = true
         passwordField.layer.borderWidth = 0.5
         passwordField.layer.borderColor = UIColor.lightGray.cgColor
-        passwordField.addTarget(self, action: #selector(self.didPasswordEdited), for: .editingChanged)
         
         return passwordField
     }()
@@ -168,6 +163,26 @@ class LogInViewController: UIViewController {
         }
     }
     
+    private func emptyFieldsCheck() -> Bool {
+        var textFieldIsEmpty = true
+        for textfield in [self.usernameField, self.passwordField] {
+            if textfield.hasText {
+                textFieldIsEmpty = false
+            } else {
+                textFieldIsEmpty = true
+                UIView.animate(withDuration: 1)
+                {
+                    textfield.backgroundColor = .systemRed
+                } completion: { _ in
+                    UIView.animate(withDuration: 0.5) {
+                        textfield.backgroundColor = .systemGray6
+                    } completion: { _ in
+                    }
+                }
+            }
+        }
+        return textFieldIsEmpty
+    }
     
     @objc private func kbdShow(notification: NSNotification) {
         if let kbdSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
@@ -181,18 +196,12 @@ class LogInViewController: UIViewController {
         self.mainScrollView.verticalScrollIndicatorInsets = .zero
     }
     
-    @objc private func didUsernameEdited() {
-        self.usernameIsEdited = true
-    }
-    
-    @objc private func didPasswordEdited() {
-        self.passwordIsEdited = true
-    }
-    
     @objc private func logInButtonDidTap() {
-        let profileVc = ProfileViewController()
-        if usernameIsEdited && passwordIsEdited {
-            self.navigationController?.pushViewController(profileVc, animated: true)
+        if !self.emptyFieldsCheck() {
+            if self.usernameField.text == username && self.passwordField.text == password {
+                let profileVc = ProfileViewController()
+                self.navigationController?.pushViewController(profileVc, animated: true)
+            } else { return }
         } else {return}
     }
 }

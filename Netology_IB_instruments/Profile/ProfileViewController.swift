@@ -32,12 +32,13 @@ class ProfileViewController: UIViewController {
     }
     
     private func configureSubviews() {
+        self.view.backgroundColor = .white
         self.view.addSubview(postsTableView)
         self.navigationController?.navigationBar.isHidden = true
     }
     
     private func setupConstraints() {
-        let postTableViewTopConstraint = self.postsTableView.topAnchor.constraint(equalTo: self.view.topAnchor)
+        let postTableViewTopConstraint = self.postsTableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)
         let postTableViewBottomConstraint = self.postsTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         let postTableViewLeadingConstraint = self.postsTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
         let postTableViewTrailingConstraint = self.postsTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)

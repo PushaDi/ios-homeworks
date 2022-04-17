@@ -48,7 +48,7 @@ final class TabBarController: UITabBarController {
     
     private func setupTabBar() {
         
-        let itemList: [TabBarItems] = [.feed, .profile, .gesture]
+        let itemList: [TabBarItems] = [.feed, .profile]
         self.viewControllers = itemList.map({ tabBarItem in
             switch tabBarItem {
                 case .feed:
