@@ -93,19 +93,20 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     private func setupStatusView() {
         self.isOpaque = false
-        self.addSubview(statusView)
+        self.addSubview(self.statusView)
         
-        statusView.text = self.statusText
-        statusView.font = UIFont.systemFont(ofSize: 14)
-        statusView.textColor = .gray
-        statusView.backgroundColor = .clear
+        self.statusView.text = self.statusText
+        self.statusView.font = UIFont.systemFont(ofSize: 14)
+        self.statusView.textColor = .gray
+        self.statusView.backgroundColor = .clear
+        self.statusView.isEditable = false
         
-        statusView.translatesAutoresizingMaskIntoConstraints = false
+        self.statusView.translatesAutoresizingMaskIntoConstraints = false
 
-        let bottomConstraint = statusView.bottomAnchor.constraint(equalTo: self.nameLabel.bottomAnchor, constant: 40)
-        let leadingConstraint = statusView.leadingAnchor.constraint(equalTo: self.layoutMarginsGuide.leadingAnchor, constant: 152)
-        let trailingConstraint = statusView.trailingAnchor.constraint(equalTo: self.layoutMarginsGuide.trailingAnchor, constant: -16)
-        let heightConstraint = statusView.heightAnchor.constraint(equalToConstant: 25)
+        let bottomConstraint = self.statusView.bottomAnchor.constraint(equalTo: self.nameLabel.bottomAnchor, constant: 40)
+        let leadingConstraint = self.statusView.leadingAnchor.constraint(equalTo: self.layoutMarginsGuide.leadingAnchor, constant: 152)
+        let trailingConstraint = self.statusView.trailingAnchor.constraint(equalTo: self.layoutMarginsGuide.trailingAnchor, constant: -16)
+        let heightConstraint = self.statusView.heightAnchor.constraint(equalToConstant: 25)
         
         NSLayoutConstraint.activate([bottomConstraint, leadingConstraint, trailingConstraint, heightConstraint])
     }
@@ -136,7 +137,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     @objc private func buttonPressed() {
         self.statusView.text = statusText
-        print(statusView.text!)
     }
     
     @objc private func statusTextChanged(_ textField: UITextField) {
