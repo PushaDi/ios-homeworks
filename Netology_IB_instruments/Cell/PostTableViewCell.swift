@@ -146,8 +146,8 @@ extension PostTableViewCell: Setupable {
         self.usernameLabel.text = viewModel.username
         self.descriptionLabel.text = viewModel.description
         self.postImageView.image = viewModel.image
-        self.viewsLabel.text = "Views:" + String(viewModel.views)
-        self.likesLabel.text = "Likes:" + String(viewModel.likes)
+        self.viewsLabel.text = "Views: " + String(viewModel.views)
+        self.likesLabel.text = "Likes: " + String(viewModel.likes)
     }
 }
 

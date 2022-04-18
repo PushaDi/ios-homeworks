@@ -53,7 +53,7 @@ class LogInViewController: UIViewController {
         passwordField.isSecureTextEntry = true
         passwordField.layer.borderWidth = 0.5
         passwordField.layer.borderColor = UIColor.lightGray.cgColor
-        passwordField.addTarget(self, action: #selector(self.checkPasswordLength), for: .editingDidEnd)
+        passwordField.addTarget(self, action: #selector(self.checkPasswordLength), for: .editingChanged)
         return passwordField
     }()
     
