@@ -115,6 +115,7 @@ class LogInViewController: UIViewController {
     }
     
     private func configureSubviews() {
+        self.view.backgroundColor = .white
         self.view.addSubview(self.mainScrollView)
         self.mainScrollView.addSubview(self.contentView)
         self.contentView.addSubview(self.iconView)
