@@ -11,7 +11,7 @@ class ProfileViewController: UIViewController {
     
     
     private lazy var postsTableView: UITableView = {
-        let postsTableView = UITableView()
+        let postsTableView = UITableView(frame: .zero, style: .grouped)
         postsTableView.rowHeight = UITableView.automaticDimension
         postsTableView.estimatedRowHeight = 50
         postsTableView.dataSource = self
@@ -29,6 +29,12 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         self.configureSubviews()
         self.setupConstraints()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let index = self.postsTableView.indexPathForSelectedRow {
+            self.postsTableView.deselectRow(at: index, animated: true)
+        }
     }
     
     private func configureSubviews() {
@@ -51,14 +57,15 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
-        } else {
-            return self.dataSource.count
         }
+        
+        return self.dataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PhotosCell", for: indexPath) as! PhotosTableViewCell
+            cell.selectionStyle = .blue
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
@@ -71,27 +78,26 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
-            return ProfileHeaderView()
-        } else {
-            return nil
+            return tableView.dequeueReusableHeaderFooterView(withIdentifier: "ProfileHeader")
         }
+        
+        return nil
     }
     
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         if indexPath.section == 0{
             return true
-        } else {
-            return false
         }
+        
+        return false
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 250
-        } else {
-            return 0
         }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
