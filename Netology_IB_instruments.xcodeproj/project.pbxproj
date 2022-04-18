@@ -16,6 +16,7 @@
 		4026AFFF28045F5600447BA2 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026AFFE28045F5600447BA2 /* PhotosCollectionViewCell.swift */; };
 		4033C6FA2809580C00090C78 /* GestureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4033C6F92809580C00090C78 /* GestureViewController.swift */; };
 		4062B5DD280AFBAF00F4D145 /* AuthorisingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4062B5DC280AFBAF00F4D145 /* AuthorisingData.swift */; };
+		4062B5E1280D58F700F4D145 /* PostFromCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4062B5E0280D58F700F4D145 /* PostFromCellViewController.swift */; };
 		4085725127D4B49600D06CC8 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085725027D4B49600D06CC8 /* TabBarController.swift */; };
 		4085725327D4B4D800D06CC8 /* ProfileNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085725227D4B4D800D06CC8 /* ProfileNavigationController.swift */; };
 		4085725527D4B50E00D06CC8 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4085725427D4B50E00D06CC8 /* PostViewController.swift */; };
@@ -42,6 +43,7 @@
 		4026AFFE28045F5600447BA2 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		4033C6F92809580C00090C78 /* GestureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureViewController.swift; sourceTree = "<group>"; };
 		4062B5DC280AFBAF00F4D145 /* AuthorisingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorisingData.swift; sourceTree = "<group>"; };
+		4062B5E0280D58F700F4D145 /* PostFromCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFromCellViewController.swift; sourceTree = "<group>"; };
 		4085725027D4B49600D06CC8 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		4085725227D4B4D800D06CC8 /* ProfileNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNavigationController.swift; sourceTree = "<group>"; };
 		4085725427D4B50E00D06CC8 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 		40C48E6527C8BF6A0072C564 /* Netology_IB_instruments */ = {
 			isa = PBXGroup;
 			children = (
+				4062B5E0280D58F700F4D145 /* PostFromCellViewController.swift */,
 				40C48E6627C8BF6A0072C564 /* AppDelegate.swift */,
 				40C48E6827C8BF6A0072C564 /* SceneDelegate.swift */,
 				40C48E6A27C8BF6A0072C564 /* ViewController.swift */,
@@ -212,6 +215,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4062B5E1280D58F700F4D145 /* PostFromCellViewController.swift in Sources */,
 				40EDC1FD2805838B00D8EF07 /* Photos.swift in Sources */,
 				4085725527D4B50E00D06CC8 /* PostViewController.swift in Sources */,
 				4026AFFD2801E08E00447BA2 /* PhotosViewController.swift in Sources */,
