@@ -7,5 +7,5 @@
 
 import UIKit
 
-let username = "adress@box.ru"
+let username = "address@box.ru"
 let password = "112233"

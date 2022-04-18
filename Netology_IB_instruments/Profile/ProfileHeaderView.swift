@@ -135,11 +135,35 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint, heightConstraint])
     }
     
+    private func emptyFieldsCheck() -> Bool {
+        var textFieldIsEmpty = true
+        if self.statusField.hasText {
+            textFieldIsEmpty = false
+        } else {
+            textFieldIsEmpty = true
+            UIView.animate(withDuration: 1) {
+                self.statusField.backgroundColor = .systemRed
+            } completion: { _ in
+                UIView.animate(withDuration: 0.5) {
+                    self.statusField.backgroundColor = .white
+                } completion: { _ in
+                    
+                }
+            }
+        }
+        return textFieldIsEmpty
+    }
+    
     @objc private func buttonPressed() {
-        self.statusView.text = statusText
+        if !self.emptyFieldsCheck() {
+            self.statusView.text = statusText
+        }
+        return
     }
     
     @objc private func statusTextChanged(_ textField: UITextField) {
+        
+        
         if let newStatus = self.statusField.text
         {
             statusText = newStatus
