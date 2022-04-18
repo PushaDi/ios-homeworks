@@ -9,14 +9,17 @@ import UIKit
 
 final class PostTableViewCell: UITableViewCell {
     
+    weak var delegate: PostTableViewCellDelegate?
+    
     struct ViewModel: ViewModelProtocol {
         let username: String
         let image: UIImage
         let description: String
         let views: Int
-        let likes: Int
+        var likes: Int
     }
     
+    private let likesLabelTapGestureRecogniser = UITapGestureRecognizer()
    
     private lazy var usernameLabel: UILabel = {
         let label = UILabel()
@@ -50,6 +53,7 @@ final class PostTableViewCell: UITableViewCell {
         likesLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         likesLabel.textColor = .black
         likesLabel.translatesAutoresizingMaskIntoConstraints = false
+        likesLabel.isUserInteractionEnabled = true
         return likesLabel
     }()
 
@@ -65,6 +69,7 @@ final class PostTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.configureSubviews()
         self.setupConstraints()
+        self.setupGestures()
        }
 
        required init?(coder: NSCoder) {
@@ -87,6 +92,7 @@ final class PostTableViewCell: UITableViewCell {
         self.contentView.addSubview(self.likesLabel)
         self.contentView.addSubview(self.viewsLabel)
     }
+    
     private func setupConstraints() {
         let usernameLabelTopConstraint = self.usernameLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16)
         let usernameLabelLeadingConstraint = self.usernameLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16)
@@ -119,6 +125,18 @@ final class PostTableViewCell: UITableViewCell {
             viewsLabelTopConstraint, viewsLabelTrailingConstraint, viewsLabelBottomConstraint
         ])
     }
+    
+    private func setupGestures() {
+        self.likesLabelTapGestureRecogniser.addTarget(self, action: #selector(self.handleLikesTapGesture(_ :)))
+        self.likesLabel.addGestureRecognizer(self.likesLabelTapGestureRecogniser)
+    }
+    
+    @objc private func handleLikesTapGesture(_ gestureRecogniser: UITapGestureRecognizer) {
+        guard self.likesLabelTapGestureRecogniser === gestureRecogniser else { return }
+        self.delegate?.didLikedPost(self)
+        
+    }
+    
 }
 
 extension PostTableViewCell: Setupable {
@@ -131,5 +149,9 @@ extension PostTableViewCell: Setupable {
         self.viewsLabel.text = "Views:" + String(viewModel.views)
         self.likesLabel.text = "Likes:" + String(viewModel.likes)
     }
+}
+
+protocol PostTableViewCellDelegate: AnyObject {
+    func didLikedPost(_ cell: PostTableViewCell)
 }
 

@@ -69,6 +69,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
+            cell.delegate = self
             let posts = self.dataSource[indexPath.row]
             let viewModel = PostTableViewCell.ViewModel(username: posts.author, image: UIImage(named: posts.image) ?? UIImage(), description: posts.description, views: posts.views, likes: posts.likes)
             cell.setup(with: viewModel)
@@ -113,5 +114,17 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             navigationController?.pushViewController(PhotosViewController(), animated: true)
         }
     }
+    
+}
+
+extension ProfileViewController: PostTableViewCellDelegate {
+    func didLikedPost(_ cell: PostTableViewCell) {
+        if let indexPath = self.postsTableView.indexPath(for: cell){
+            self.dataSource[indexPath.row].likes += 1
+            self.postsTableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+        
+    }
+    
     
 }
