@@ -1,15 +1,13 @@
 //
-//  PostTableViewCell.swift
+//  PostFromCellViewController.swift
 //  Netology_IB_instruments
 //
-//  Created by Dmitry Khloptsov on 26.03.2022.
+//  Created by Dmitry Khloptsov on 18.04.2022.
 //
 
 import UIKit
 
-final class PostTableViewCell: UITableViewCell {
-    
-    weak var delegate: PostTableViewCellDelegate?
+class PostFromCellViewController: UIViewController {
     
     struct ViewModel: ViewModelProtocol {
         let username: String
@@ -18,8 +16,18 @@ final class PostTableViewCell: UITableViewCell {
         let views: Int
         var likes: Int
     }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.configureSubviews()
+        self.setupConstraints()
+    }
     
-    private let likesLabelTapGestureRecogniser = UITapGestureRecognizer()
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
    
     private lazy var usernameLabel: UILabel = {
         let label = UILabel()
@@ -65,56 +73,39 @@ final class PostTableViewCell: UITableViewCell {
         return viewsLabel
     }()
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.configureSubviews()
-        self.setupConstraints()
-        self.setupGestures()
-       }
 
-       required init?(coder: NSCoder) {
-           fatalError("init(coder:) has not been implemented")
-       }
-
-       override func prepareForReuse() {
-           super.prepareForReuse()
-           self.usernameLabel.text = nil
-           self.descriptionLabel.text = nil
-           self.viewsLabel.text = nil
-           self.likesLabel.text = nil
-           self.postImageView.image = nil
-       }
 
     private func configureSubviews() {
-        self.contentView.addSubview(self.usernameLabel)
-        self.contentView.addSubview(self.postImageView)
-        self.contentView.addSubview(self.descriptionLabel)
-        self.contentView.addSubview(self.likesLabel)
-        self.contentView.addSubview(self.viewsLabel)
+        self.view.backgroundColor = .white
+        self.navigationController?.navigationBar.isHidden = false
+        self.view.addSubview(self.usernameLabel)
+        self.view.addSubview(self.postImageView)
+        self.view.addSubview(self.descriptionLabel)
+        self.view.addSubview(self.likesLabel)
+        self.view.addSubview(self.viewsLabel)
     }
     
     private func setupConstraints() {
-        let usernameLabelTopConstraint = self.usernameLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16)
-        let usernameLabelLeadingConstraint = self.usernameLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16)
-        let usernameLabelTrailingConstraint = self.usernameLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16)
+        let usernameLabelTopConstraint = self.usernameLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 16)
+        let usernameLabelLeadingConstraint = self.usernameLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16)
+        let usernameLabelTrailingConstraint = self.usernameLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16)
 //        let usernameLabelHeightConstraint = self.usernameLabel.heightAnchor.constraint(equalToConstant: 50)
 
         let imageViewTopConstraint = self.postImageView.topAnchor.constraint(equalTo: self.usernameLabel.bottomAnchor, constant: 12)
         let imageViewHeightConstraint = self.postImageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
         let imageViewWidthConstraint = self.postImageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
-        let imageViewLeadingConstraint = self.postImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor)
-        let imageViewTrailingConstraint = self.postImageView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor)
+        let imageViewLeadingConstraint = self.postImageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
+        let imageViewTrailingConstraint = self.postImageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
 
         let descriptionTopConstraint = self.descriptionLabel.topAnchor.constraint(equalTo: self.postImageView.bottomAnchor, constant: 16)
-        let descriptionLeadingConstraint = self.descriptionLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16)
-        let descriptionTrailingConstraint = self.descriptionLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16)
+        let descriptionLeadingConstraint = self.descriptionLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16)
+        let descriptionTrailingConstraint = self.descriptionLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16)
 
         let likesLabelTopConstraint = self.likesLabel.topAnchor.constraint(equalTo: self.descriptionLabel.bottomAnchor, constant: 16)
-        let likesLabelLeadingConstraint = self.likesLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16)
+        let likesLabelLeadingConstraint = self.likesLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16)
 
         let viewsLabelTopConstraint = self.viewsLabel.topAnchor.constraint(equalTo: self.likesLabel.topAnchor)
-        let viewsLabelTrailingConstraint = self.viewsLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16)
-        let viewsLabelBottomConstraint = self.viewsLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5)
+        let viewsLabelTrailingConstraint = self.viewsLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16)
 
 
         NSLayoutConstraint.activate([
@@ -122,36 +113,19 @@ final class PostTableViewCell: UITableViewCell {
             imageViewTopConstraint, imageViewWidthConstraint, imageViewHeightConstraint, imageViewLeadingConstraint,imageViewTrailingConstraint,
             descriptionTopConstraint, descriptionLeadingConstraint, descriptionTrailingConstraint,
             likesLabelTopConstraint, likesLabelLeadingConstraint,
-            viewsLabelTopConstraint, viewsLabelTrailingConstraint, viewsLabelBottomConstraint
+            viewsLabelTopConstraint, viewsLabelTrailingConstraint
         ])
     }
-    
-    private func setupGestures() {
-        self.likesLabelTapGestureRecogniser.addTarget(self, action: #selector(self.handleLikesTapGesture(_ :)))
-        self.likesLabel.addGestureRecognizer(self.likesLabelTapGestureRecogniser)
-    }
-    
-    @objc private func handleLikesTapGesture(_ gestureRecogniser: UITapGestureRecognizer) {
-        guard self.likesLabelTapGestureRecogniser === gestureRecogniser else { return }
-        self.delegate?.didLikedPost(self)
-        
-    }
-    
 }
 
-extension PostTableViewCell: Setupable {
+extension PostFromCellViewController: Setupable {
     func setup(with viewModel: ViewModelProtocol) {
         guard let viewModel = viewModel as? ViewModel else { return }
 
         self.usernameLabel.text = viewModel.username
         self.descriptionLabel.text = viewModel.description
         self.postImageView.image = viewModel.image
-        self.viewsLabel.text = "Views: " + String(viewModel.views)
-        self.likesLabel.text = "Likes: " + String(viewModel.likes)
+        self.viewsLabel.text = "Views:" + String(viewModel.views)
+        self.likesLabel.text = "Likes:" + String(viewModel.likes)
     }
 }
-
-protocol PostTableViewCellDelegate: AnyObject {
-    func didLikedPost(_ cell: PostTableViewCell)
-}
-

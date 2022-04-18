@@ -9,7 +9,6 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    
     private lazy var postsTableView: UITableView = {
         let postsTableView = UITableView(frame: .zero, style: .grouped)
         postsTableView.rowHeight = UITableView.automaticDimension
@@ -32,10 +31,10 @@ class ProfileViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if let index = self.postsTableView.indexPathForSelectedRow {
-            self.postsTableView.deselectRow(at: index, animated: true)
-        }
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
     }
+
     
     private func configureSubviews() {
         self.view.backgroundColor = .white
@@ -69,6 +68,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
+            cell.delegate = self
             let posts = self.dataSource[indexPath.row]
             let viewModel = PostTableViewCell.ViewModel(username: posts.author, image: UIImage(named: posts.image) ?? UIImage(), description: posts.description, views: posts.views, likes: posts.likes)
             cell.setup(with: viewModel)
@@ -86,11 +86,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.section == 0{
-            return true
-        }
-        
-        return false
+        return true
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -111,7 +107,26 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             navigationController?.pushViewController(PhotosViewController(), animated: true)
+            self.postsTableView.deselectRow(at: indexPath, animated: true)
+        } else {
+            let postVc = PostFromCellViewController()
+            self.dataSource[indexPath.row].views += 1
+            let post = self.dataSource[indexPath.row]
+            let viewModel = PostFromCellViewController.ViewModel(username: post.author, image: UIImage(named: post.image) ?? UIImage(), description: post.description, views: post.views, likes: post.likes)
+            postVc.setup(with: viewModel)
+            navigationController?.pushViewController(postVc, animated: true)
+            self.postsTableView.deselectRow(at: indexPath, animated: true)
+            self.postsTableView.reloadRows(at: [indexPath], with: .none)
         }
     }
     
+}
+
+extension ProfileViewController: PostTableViewCellDelegate {
+    func didLikedPost(_ cell: PostTableViewCell) {
+        if let indexPath = self.postsTableView.indexPath(for: cell){
+            self.dataSource[indexPath.row].likes += 1
+            self.postsTableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+    }
 }

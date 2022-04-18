@@ -9,9 +9,6 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
-    private lazy var usernameIsEdited: Bool = false
-    private lazy var passwordIsEdited: Bool = false
-    
     private lazy var mainScrollView: UIScrollView = {
         let mainScrollView = UIScrollView()
         mainScrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +37,6 @@ class LogInViewController: UIViewController {
         usernameField.autocapitalizationType = .none
         usernameField.tintColor = UIColor(named: "AccentColor")
         usernameField.placeholder = "Email or phone"
-        usernameField.addTarget(self, action: #selector(self.didUsernameEdited), for: .editingChanged)
         
         return usernameField
     }()
@@ -57,9 +53,19 @@ class LogInViewController: UIViewController {
         passwordField.isSecureTextEntry = true
         passwordField.layer.borderWidth = 0.5
         passwordField.layer.borderColor = UIColor.lightGray.cgColor
-        passwordField.addTarget(self, action: #selector(self.didPasswordEdited), for: .editingChanged)
-        
+        passwordField.addTarget(self, action: #selector(self.checkPasswordLength), for: .editingChanged)
         return passwordField
+    }()
+    
+    private lazy var warningLabel: UILabel = {
+        let warningLabel = UILabel()
+        warningLabel.translatesAutoresizingMaskIntoConstraints = false
+        warningLabel.text = "Слишком короткий пароль!"
+        warningLabel.textColor = .systemRed
+        warningLabel.font = .systemFont(ofSize: 12)
+        warningLabel.isHidden = true
+        warningLabel.alpha = 0
+        return warningLabel
     }()
     
     private lazy var logInStackView: UIStackView = {
@@ -120,6 +126,7 @@ class LogInViewController: UIViewController {
         self.mainScrollView.addSubview(self.contentView)
         self.contentView.addSubview(self.iconView)
         self.contentView.addSubview(self.logInStackView)
+        self.contentView.addSubview(self.warningLabel)
         self.logInStackView.addArrangedSubview(self.usernameField)
         self.logInStackView.addArrangedSubview(self.passwordField)
         self.contentView.addSubview(self.logInButton)
@@ -149,6 +156,11 @@ class LogInViewController: UIViewController {
         let logInStackViewTrailingConstraint = self.logInStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16)
         let logInStackViewHeightConstraint = self.logInStackView.heightAnchor.constraint(equalToConstant: 100)
         
+        let warninglabelTopConstraint = self.warningLabel.topAnchor.constraint(equalTo: self.logInStackView.bottomAnchor, constant: 2)
+        let warningLabelLeadingConstraint = self.warningLabel.leadingAnchor.constraint(equalTo: self.logInStackView.leadingAnchor)
+        let warningLabelTrailingConstraint = self.warningLabel.trailingAnchor.constraint(equalTo: self.logInStackView.trailingAnchor)
+        let warningLabelHeightConstraint = self.warningLabel.heightAnchor.constraint(equalToConstant: 12)
+        
         let logInButtonTopConstraint = self.logInButton.topAnchor.constraint(equalTo: self.logInStackView.bottomAnchor, constant: 16)
         let logInButtonLeadingConstraint = self.logInButton.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16)
         let logInButtonTrailingConstraint = self.logInButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16)
@@ -158,6 +170,7 @@ class LogInViewController: UIViewController {
             mainScrollViewTopConstraint,mainScrollViewBottomConstraint, mainScrollViewLeadingConstraint, mainScrollViewTrailingConstraint,
             contentViewTopConstraint, contentViewBottomConstraint, contentViewLeadingConstraint, contentViewTralingConstraint, contentViewWidthConstraint, contentViewHeightConstraint,
             iconViewTopConstraint, iconViewWidthConstraint, iconViewHeightConstraint, iconViewCenterXConstraint,
+            warninglabelTopConstraint, warningLabelLeadingConstraint, warningLabelTrailingConstraint, warningLabelHeightConstraint,
             logInStackViewTopConstraint, logInStackViewHeightConstraint, logInStackViewLeadingConstraint, logInStackViewTrailingConstraint,
             logInButtonTopConstraint, logInButtonLeadingConstraint, logInButtonTrailingConstraint, logInButtonHeightConstraint])
         
@@ -169,6 +182,26 @@ class LogInViewController: UIViewController {
         }
     }
     
+    private func emptyFieldsCheck() -> Bool {
+        var textFieldIsEmpty = true
+        for textfield in [self.usernameField, self.passwordField] {
+            if textfield.hasText {
+                textFieldIsEmpty = false
+            } else {
+                textFieldIsEmpty = true
+                UIView.animate(withDuration: 1)
+                {
+                    textfield.backgroundColor = .systemRed
+                } completion: { _ in
+                    UIView.animate(withDuration: 0.5) {
+                        textfield.backgroundColor = .systemGray6
+                    } completion: { _ in
+                    }
+                }
+            }
+        }
+        return textFieldIsEmpty
+    }
     
     @objc private func kbdShow(notification: NSNotification) {
         if let kbdSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
@@ -182,18 +215,46 @@ class LogInViewController: UIViewController {
         self.mainScrollView.verticalScrollIndicatorInsets = .zero
     }
     
-    @objc private func didUsernameEdited() {
-        self.usernameIsEdited = true
-    }
-    
-    @objc private func didPasswordEdited() {
-        self.passwordIsEdited = true
-    }
-    
     @objc private func logInButtonDidTap() {
-        let profileVc = ProfileViewController()
-        if usernameIsEdited && passwordIsEdited {
-            self.navigationController?.pushViewController(profileVc, animated: true)
+        if !self.emptyFieldsCheck() {
+            if self.usernameField.text == username && self.passwordField.text == password {
+                let profileVc = ProfileViewController()
+                self.navigationController?.pushViewController(profileVc, animated: true)
+            } else {
+                let wrongPasswordAlert = UIAlertController(title: "Неправильный логин и(или) пароль", message: "Проверьте правильность введенных данных!", preferredStyle: .alert)
+                wrongPasswordAlert.addAction(UIAlertAction(title: "Ввести заново", style: .default, handler: {action in enterAgain()}))
+                
+                func enterAgain() {return}
+                
+                self.present(wrongPasswordAlert, animated: true, completion: nil)
+            }
         } else {return}
+    }
+    
+    @objc private func checkPasswordLength() {
+        if let enteredPassword = self.passwordField.text {
+            if enteredPassword.count < 5 {
+                UIView.animate(withDuration: 0.5) {
+                    self.warningLabel.isHidden = false
+                    self.warningLabel.alpha = 1
+                } completion: { _ in
+                    
+                }
+            } else {
+                UIView.animate(withDuration: 0.5) {
+                    self.warningLabel.isHidden = true
+                    self.warningLabel.alpha = 0
+                } completion: { _ in
+                    
+                }
+            }
+        } else {
+            UIView.animate(withDuration: 0.5) {
+                self.warningLabel.isHidden = false
+                self.warningLabel.alpha = 1
+            } completion: { _ in
+                
+            }
+        }
     }
 }
